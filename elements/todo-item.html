@@ -1,0 +1,58 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!--
+
+@demo demo/index.html
+-->
+
+<dom-module id="todo-item">
+    <style>
+    </style>
+    <template>
+        <paper-item>
+            <div>todo.content</div>
+            <paper-checkbox></paper-checkbox>
+        </paper-item>
+    </template>
+
+    <script>
+        Polymer({
+            is: "todo-item",
+
+            behaviors: [],
+
+            properties: {
+                todo: {
+                    type: Object,
+                },
+            },
+
+            observers: [],
+
+            listeners: {},
+
+
+            // Element Lifecycle
+            ready: function () {
+
+            },
+
+            attached: function () {
+
+            },
+
+            detached: function () {
+
+            },
+
+            // Public API
+
+            // Listeners
+
+            // Observers
+
+            // Private Helpers
+
+        });
+    </script>
+</dom-module>
