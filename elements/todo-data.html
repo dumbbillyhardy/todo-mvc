@@ -1,0 +1,73 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/firebase-element/firebase-collection.html">
+<link rel="import" href="../bower_components/firebase-element/firebase.html">
+
+<!--
+
+    <todo-data></todo-data>
+
+The following custom properties and mixins are available for styling:
+
+@element todo-data
+@demo demo/index.html
+@blurb 
+@author Billy Hardy
+@status 0.0.1.a
+-->
+<dom-module id="todo-data">
+    <style is="custom-style">
+    </style>
+    <template>
+        <firebase-collection
+          order-by-child="height"
+          location="https://dinosaur-facts.firebaseio.com/dinosaurs"
+          data="{{dinosaurs}}"></firebase-collection>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: "todo-data",
+
+            behaviors: [],
+
+            properties: {
+                todos: {
+                    type: Array,
+                    value: function () {
+                        return [
+                            {
+                                content: "Pick up groceries",
+                                complete: false,
+                            }
+                        ];
+                    }
+                }
+            },
+
+            // Public API
+
+            // Observers
+
+            // Listeners
+
+            // Private Helpers
+
+            // Element Lifecycle
+            ready: function () {
+                var ref = new Firebase("https://intense-torch-1451.firebaseio.com/");
+                ref.set({todos: this.todos});
+                var todosRef = ref.child('todos');
+                todosRef.push(this.todo[0]);
+            },
+
+            attached: function () {
+
+            },
+
+            detached: function () {
+
+            },
+        });
+    </script>
+</dom-module>
