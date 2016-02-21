@@ -12,7 +12,7 @@
     <template>
       <div class="layout horizontal">
             <div>[[todo.content]]</div>
-            <paper-checkbox></paper-checkbox>
+            <paper-checkbox checked="{{todo.complete}}"></paper-checkbox>
       </div>
     </template>
 
@@ -25,13 +25,18 @@
             properties: {
                 todo: {
                     type: Object,
+                    notify: true,
+                    observer: "todoObserver",
                 },
             },
 
-            observers: [],
+            observers: ["todoObserver(todo.complete)"],
 
             listeners: {},
 
+            todoObserver: function(complete) {
+                console.log(complete);
+            },
 
             // Element Lifecycle
             ready: function () {
