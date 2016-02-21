@@ -28,6 +28,12 @@ The following custom properties and mixins are available for styling:
             behaviors: [],
 
             properties: {
+                firebase: {
+                    type: Object,
+                    value: function() {
+                        return new Firebase(TodoConfig.firebaseInstance);
+                    },
+                },
                 todos: {
                     type: Array,
                     notify: true,
@@ -41,6 +47,9 @@ The following custom properties and mixins are available for styling:
                     }
                 }
             },
+            
+            observers: ["_todosObserver(todos.splices)"],
+            
 
             // Public API
 
@@ -50,14 +59,16 @@ The following custom properties and mixins are available for styling:
 
             // Private Helpers
 
-            // Element Lifecycle
-            ready: function () {
-                var ref = new Firebase(TodoConfig.firebaseInstance);
-                //ref.set({todos: this.todos});
-                var todosRef = ref.child('todos');
-                //todosRef.push(this.todo[0]);
+            
+            _todosObserver: function(changeRecord) {
+                this.firebase.set(this.todos);
             },
 
+            //Element Lifecycle
+            ready: function() {
+              
+            },
+            
             attached: function () {
 
             },
