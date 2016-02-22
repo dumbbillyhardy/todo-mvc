@@ -1,0 +1,85 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+
+
+<!--
+
+@demo demo/index.html
+-->
+
+<dom-module id="todo-input">
+    <style>
+    </style>
+    <template>
+        <div class="horizontal layout">
+            <paper-input value="{{content}}"></paper-input>
+            <paper-checkbox checked="{{completed}}" class="self-center"></paper-checkbox>
+            <paper-button on-click="_handleSaveClick" raised>Save Todo</paper-button>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: "todo-input",
+
+            behaviors: [],
+
+            properties: {
+                content: {
+                    type: String,
+                },
+                completed: {
+                    type: Boolean,
+                },
+                todo: {
+                    type: Object,
+                    notify: true,                    
+                },
+                firebase: {
+                    type: Object,
+                    value: function() {
+                        return new Firebase(TodoConfig.firebaseInstance+"/todos");
+                    },
+                },
+            },
+
+            observers: [],
+
+            listeners: {},
+
+
+            // Element Lifecycle
+            ready: function () {
+
+            },
+
+            attached: function () {
+
+            },
+
+            detached: function () {
+
+            },
+
+            // Public API
+
+            // Listeners
+            _handleSaveClick: function() {
+                this.todo = {
+                  content: this.content,
+                  completed: this.completed,
+                };
+                this.firebase.push(this.todo);
+                this.content = "";
+                this.completed = false;
+            },
+
+            // Observers
+
+            // Private Helpers
+
+        });
+    </script>
+</dom-module>
