@@ -18,7 +18,11 @@ The following custom properties and mixins are available for styling:
     <style is="custom-style">
     </style>
     <template>
-
+        <firebase-collection
+            order-by-child="height"
+            limit-to-first="3"
+            location="{{firebaseLocation}}"
+            data="{{todos}}"></firebase-collection>
     </template>
 
     <script>
@@ -34,18 +38,16 @@ The following custom properties and mixins are available for styling:
                         return new Firebase(TodoConfig.firebaseInstance);
                     },
                 },
+                firebaseLocation: {
+                    type: String,
+                    value: function() {
+                        return TodoConfig.firebaseInstance+"/todos";
+                    },
+                },
                 todos: {
                     type: Array,
                     notify: true,
-                    value: function () {
-                        return [
-                            {
-                                content: "Pick up groceries",
-                                complete: false,
-                            }
-                        ];
-                    }
-                }
+                },
             },
             
             observers: ["_todosObserver(todos.splices)"],
@@ -61,7 +63,7 @@ The following custom properties and mixins are available for styling:
 
             
             _todosObserver: function(changeRecord) {
-                this.firebase.set(this.todos);
+                console.log(this.todos);
             },
 
             //Element Lifecycle
